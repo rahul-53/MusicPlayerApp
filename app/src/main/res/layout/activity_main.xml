@@ -8,10 +8,12 @@
     tools:context=".MainActivity">
 
    <EditText
+       android:id="@+id/etSearchSong"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:hint="search"/>
     <Button
+        android:id="@+id/btnSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="search"
