@@ -4,7 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,10 +23,11 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     private EditText etSearch;
-    private Button mBtnSearch;
+    private Button mBtnSearch, mBtnPause, mBtnPlay, mBtnResume,mBtnDelete,mBtnStop;
     private RecyclerView recyclerView;
     private ArrayList<ResultsDTO> resultsList;
     private ResponseDTO responseList;
+    private MusicService musicService;
 
 
     @Override
@@ -37,12 +42,42 @@ public class MainActivity extends AppCompatActivity {
         etSearch= findViewById(R.id.etSearchSong);
         mBtnSearch = findViewById(R.id.btnSearch);
         recyclerView = findViewById(R.id.recyclerView);
+        mBtnDelete=  findViewById(R.id.btnDelete);
+        mBtnPause = findViewById(R.id.btnPause);
+        mBtnResume = findViewById(R.id.btnResume);
+        mBtnPlay = findViewById(R.id.btnPlay);
+        mBtnStop = findViewById(R.id.btnStop);
 
         mBtnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 callApi();
 
+            }
+        });
+
+        mBtnPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                musicService.play();
+            }
+        });
+        mBtnPause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                musicService.pause();
+            }
+        });
+        mBtnResume.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                musicService.resume();
+            }
+        });
+        mBtnStop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                musicService.stop();
             }
         });
     }
@@ -70,6 +105,25 @@ public class MainActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
+    }
+
+    private ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            MusicService.ServiceBinder serviceBinder = (MusicService.ServiceBinder)service;
+
+
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
+
+    private void startMusicService(){
+        Intent intent = new Intent(MainActivity.this,MusicService.class);
+        bindService(intent, serviceConnection, BIND_AUTO_CREATE);
     }
 
 }

@@ -28,7 +28,7 @@ public class MusicViewHolder extends RecyclerView.ViewHolder {
         mIvSongImg = view.findViewById(R.id.ivSongImg);
     }
     public void setData(ResultsDTO resultsDTO){
-        mTvSongName.setText(resultsDTO.getCollectionName());
+        mTvSongName.setText(resultsDTO.getTrackName());
         mTvArtist.setText(resultsDTO.getArtistName());
         Glide.with(mIvSongImg).load(mIvSongImg.getDrawable()).into(mIvSongImg);
     }
