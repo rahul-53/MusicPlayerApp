@@ -11,9 +11,9 @@ import java.util.ArrayList;
 
 public class MusicAdapter extends RecyclerView.Adapter<MusicViewHolder> {
 
-    ArrayList<ResultsDTO> resultsList;
-    public MusicAdapter( ArrayList<ResultsDTO> resultsList){
-        this.resultsList= resultsList;
+    ArrayList<ResultsDTO> responseList;
+    public MusicAdapter( ArrayList<ResultsDTO> responseList){
+        this.responseList= responseList;
     }
 
     @NonNull
@@ -25,12 +25,12 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MusicViewHolder holder, int position) {
-        holder.setData(resultsList.get(position));
+        holder.setData(responseList.get(position));
 
     }
 
     @Override
     public int getItemCount() {
-        return resultsList.size();
+        return responseList.size();
     }
 }
