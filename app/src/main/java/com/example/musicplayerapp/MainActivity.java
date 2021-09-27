@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         mBtnPlay = findViewById(R.id.btnPlay);
         mBtnStop = findViewById(R.id.btnStop);
 
+
         mBtnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,27 +57,32 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        startMusicService();
         mBtnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                musicService.play();
+                if (musicService!=null)
+                    musicService.play();
             }
         });
         mBtnPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                musicService.pause();
+                if (musicService!=null)
+                    musicService.pause();
             }
         });
         mBtnResume.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (musicService!=null)
                 musicService.resume();
             }
         });
         mBtnStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (musicService!=null)
                 musicService.stop();
             }
         });
@@ -111,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             MusicService.ServiceBinder serviceBinder = (MusicService.ServiceBinder)service;
-
+            musicService = serviceBinder.getMusicService();
 
         }
 

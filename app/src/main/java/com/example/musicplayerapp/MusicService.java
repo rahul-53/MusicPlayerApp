@@ -20,15 +20,12 @@ public class MusicService extends Service {
 
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
+
 
     @Override
     public IBinder onBind(Intent intent) {
 
-        throw new UnsupportedOperationException("Not yet implemented");
+        return new ServiceBinder();
     }
 
     public class ServiceBinder extends Binder{
@@ -59,6 +56,11 @@ public class MusicService extends Service {
         if (mediaPlayer.isPlaying()){
             mediaPlayer.stop();
         }
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mediaPlayer.release();
     }
 
 }
