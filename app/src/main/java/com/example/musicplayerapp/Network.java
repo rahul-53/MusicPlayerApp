@@ -13,7 +13,7 @@ public class Network {
        Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://itunes.apple.com/")
                 .addConverterFactory(GsonConverterFactory.create())
-                .client(new OkHttpClient.Builder().addNetworkInterceptor(httpLoggingInterceptor).build())
+                .client(new OkHttpClient.Builder().addInterceptor(httpLoggingInterceptor).build())
                 .build();
         return retrofit;
     }
