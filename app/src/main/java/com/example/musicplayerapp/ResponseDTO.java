@@ -1,5 +1,6 @@
 package com.example.musicplayerapp;
 
+import java.util.Collection;
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;

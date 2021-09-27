@@ -13,9 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collection;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private Button mBtnSearch, mBtnPause, mBtnPlay, mBtnResume,mBtnDelete,mBtnStop;
     private RecyclerView recyclerView;
     private ArrayList<ResultsDTO> resultsList;
-    private ArrayList<ResponseDTO> responseList;
+    private ArrayList<ResultsDTO> responseList;
     private MusicService musicService;
 
 
@@ -95,8 +93,11 @@ public class MainActivity extends AppCompatActivity {
         apiService.getSong(trackName).enqueue(new Callback<ResponseDTO>() {
             @Override
             public void onResponse(Call<ResponseDTO> call, Response<ResponseDTO> response) {
+                if (response.body()!=null){
+                    resultsList.addAll(response.body());
+                    setRecyclerView();
+                }
 
-                setRecyclerView();
             }
 
             @Override
@@ -104,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
 
     }
     private void setRecyclerView(){
